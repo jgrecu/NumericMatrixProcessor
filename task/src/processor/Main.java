@@ -19,11 +19,10 @@ public class Main {
         int[][] sumMatrix = new int[firstMatrix.length][firstMatrix[0].length];
         if (firstMatrix.length != secondMatrix.length && firstMatrix[0].length != secondMatrix[0].length) {
             throw new ArithmeticException("\nERROR");
-        } else {
-            for (int row = 0; row < firstMatrix.length; row++) {
-                for (int column = 0; column < firstMatrix[0].length; column++) {
-                    sumMatrix[row][column] = firstMatrix[row][column] + secondMatrix[row][column];
-                }
+        }
+        for (int row = 0; row < firstMatrix.length; row++) {
+            for (int column = 0; column < firstMatrix[0].length; column++) {
+                sumMatrix[row][column] = firstMatrix[row][column] + secondMatrix[row][column];
             }
         }
         return sumMatrix;

@@ -8,14 +8,14 @@ public class Main {
         int[][] firstMatrix = getMatrix(scanner);
         int[][] secondMatrix = getMatrix(scanner);
         try {
-            int[][] sum = getSumMatrix(firstMatrix, secondMatrix);
+            int[][] sum = getSumMatrices(firstMatrix, secondMatrix);
             printMatrix(sum);
         } catch (ArithmeticException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public static int[][] getSumMatrix(int[][] firstMatrix, int[][] secondMatrix) {
+    public static int[][] getSumMatrices(int[][] firstMatrix, int[][] secondMatrix) {
         int[][] sumMatrix = new int[firstMatrix.length][firstMatrix[0].length];
         if (firstMatrix.length != secondMatrix.length && firstMatrix[0].length != secondMatrix[0].length) {
             throw new ArithmeticException("\nERROR");

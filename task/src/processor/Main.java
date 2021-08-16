@@ -6,13 +6,16 @@ public class Main {
     public static void main(String[] args) {
         final Scanner scanner = new Scanner(System.in);
         int[][] firstMatrix = getMatrix(scanner);
-        int[][] secondMatrix = getMatrix(scanner);
-        try {
-            int[][] sum = getSumMatrices(firstMatrix, secondMatrix);
-            printMatrix(sum);
-        } catch (ArithmeticException e) {
-            System.out.println(e.getMessage());
-        }
+//        int[][] secondMatrix = getMatrix(scanner);
+//        try {
+//            int[][] sum = getSumMatrices(firstMatrix, secondMatrix);
+//            printMatrix(sum);
+//        } catch (ArithmeticException e) {
+//            System.out.println(e.getMessage());
+//        }
+        int scalar = scanner.nextInt();
+        int[][] scalarMultiplication = getScaleMatrix(firstMatrix, scalar);
+        printMatrix(scalarMultiplication);
     }
 
     public static int[][] getSumMatrices(int[][] firstMatrix, int[][] secondMatrix) {
@@ -26,6 +29,16 @@ public class Main {
             }
         }
         return sumMatrix;
+    }
+
+    public static int[][] getScaleMatrix(int[][] matrix, int scalar) {
+        int[][] scalarMultiplication = new int[matrix.length][matrix[0].length];
+        for (int row = 0; row < matrix.length; row++) {
+            for (int column = 0; column < matrix[0].length; column++) {
+                scalarMultiplication[row][column] =  scalar * matrix[row][column];
+            }
+        }
+        return scalarMultiplication;
     }
 
     public static int[][] getMatrix(Scanner scanner) {

@@ -14,8 +14,8 @@ public class Main {
 //            System.out.println(e.getMessage());
 //        }
         int scalar = scanner.nextInt();
-        int[][] scalarMultiplication = getScaleMatrix(firstMatrix, scalar);
-        printMatrix(scalarMultiplication);
+        int[][] scaledMatrix = getScaledMatrix(firstMatrix, scalar);
+        printMatrix(scaledMatrix);
     }
 
     public static int[][] getSumMatrices(int[][] firstMatrix, int[][] secondMatrix) {
@@ -31,14 +31,14 @@ public class Main {
         return sumMatrix;
     }
 
-    public static int[][] getScaleMatrix(int[][] matrix, int scalar) {
-        int[][] scalarMultiplication = new int[matrix.length][matrix[0].length];
+    public static int[][] getScaledMatrix(int[][] matrix, int scalar) {
+        int[][] scaledMatrix = new int[matrix.length][matrix[0].length];
         for (int row = 0; row < matrix.length; row++) {
             for (int column = 0; column < matrix[0].length; column++) {
-                scalarMultiplication[row][column] =  scalar * matrix[row][column];
+                scaledMatrix[row][column] =  scalar * matrix[row][column];
             }
         }
-        return scalarMultiplication;
+        return scaledMatrix;
     }
 
     public static int[][] getMatrix(Scanner scanner) {

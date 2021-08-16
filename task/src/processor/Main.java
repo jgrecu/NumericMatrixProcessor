@@ -141,6 +141,19 @@ public class Main {
         return result;
     }
 
+    public static double calculateDeterminant(double[][] matrix) {
+        double determinant = 0;
+        final int N = matrix[0].length;
+        final int M = matrix.length;
+        if (M == 1) {
+            return matrix[0][0];
+        }
+
+        double[][] temp = new double[N][M];
+
+        return determinant;
+    }
+
     public static void matrixOperationsMenu() {
         double[][] firstMatrix;
         double[][] secondMatrix;

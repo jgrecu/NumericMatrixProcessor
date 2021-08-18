@@ -141,7 +141,7 @@ public class Main {
         return result;
     }
 
-    /* Recursive function for finding determinant of matrix. n is current dimension of matrix[][]. */
+    /* Recursive function for finding determinant of matrix. n is current length of matrix. */
     public static double calculateDeterminant(double[][] matrix, int n) {
         double determinant = 0;
         final int M = matrix[0].length;
@@ -168,7 +168,7 @@ public class Main {
     }
 
     private static void getCofactor(double[][] mat, double[][] temp, int p, int q, int n) {
-        // Function to get cofactor of mat[p][q] in temp[][]. n is current dimension of mat[][]
+        // Function to get cofactor of mat[p][q] in temp[][]. n is current dimension of mat.
         int i = 0;
         int j = 0;
         for (int row = 0; row < n; row++) {
@@ -177,7 +177,7 @@ public class Main {
                 if (row != p && col != q) {
                     temp[i][j++] = mat[row][col];
                     // Row is filled, so increase row index and reset col index
-                    if (j == n -1) {
+                    if (j == n - 1) {
                         j = 0;
                         i++;
                     }

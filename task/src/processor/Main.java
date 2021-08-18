@@ -145,8 +145,15 @@ public class Main {
     public static double calculateDeterminant(double[][] matrix, int n) {
         double determinant = 0;
         final int M = matrix[0].length;
+        if (n != M) {
+            System.out.println ("The matrix is not a square matrix, there is no determinant");
+            return Double.MIN_VALUE;
+        }
         if (n == 1) {
             return matrix[0][0];
+        }
+        if (n == 2) {
+            return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
         }
 
         double[][] temp = new double[M][M];

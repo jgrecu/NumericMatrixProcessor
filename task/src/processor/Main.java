@@ -5,7 +5,8 @@ import java.util.Scanner;
 
 public class Main {
     private static final Scanner SCANNER = new Scanner(System.in);
-    public static final String THE_RESULT_IS = "The result is:";
+    private static final String THE_RESULT_IS = "The result is:";
+    private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.##");
 
     public static void main(String[] args) {
         matrixOperationsMenu();
@@ -41,11 +42,10 @@ public class Main {
     }
 
     public static void printMatrix(double[][] matrix) {
-        DecimalFormat df = new DecimalFormat("#.##");
         System.out.println();
         for (double[] row : matrix) {
             for (double cell : row) {
-                System.out.printf("%s ", df.format(cell));
+                System.out.printf("%s ", DECIMAL_FORMAT.format(cell));
             }
             System.out.println();
         }
@@ -141,17 +141,42 @@ public class Main {
         return result;
     }
 
-    public static double calculateDeterminant(double[][] matrix) {
+    /* Recursive function for finding determinant of matrix. n is current dimension of matrix[][]. */
+    public static double calculateDeterminant(double[][] matrix, int n) {
         double determinant = 0;
-        final int N = matrix[0].length;
-        final int M = matrix.length;
-        if (M == 1) {
+        final int M = matrix[0].length;
+        if (n == 1) {
             return matrix[0][0];
         }
 
-        double[][] temp = new double[N][M];
+        double[][] temp = new double[M][M];
+        int sign = 1;
+        for (int i = 0; i < n; i++) {
+            getCofactor(matrix, temp, 0, i, n);
+            determinant += sign * matrix[0][i] * calculateDeterminant(temp, n - 1);
+            sign = -sign;
+        }
 
         return determinant;
+    }
+
+    private static void getCofactor(double[][] mat, double[][] temp, int p, int q, int n) {
+        // Function to get cofactor of mat[p][q] in temp[][]. n is current dimension of mat[][]
+        int i = 0;
+        int j = 0;
+        for (int row = 0; row < n; row++) {
+            for (int col = 0; col < n; col++) {
+                // Copying into temporary matrix only those elements which are not in given row and column
+                if (row != p && col != q) {
+                    temp[i][j++] = mat[row][col];
+                    // Row is filled, so increase row index and reset col index
+                    if (j == n -1) {
+                        j = 0;
+                        i++;
+                    }
+                }
+            }
+        }
     }
 
     public static void matrixOperationsMenu() {
@@ -164,6 +189,7 @@ public class Main {
                     "2. Multiply matrix by a constant\n" +
                     "3. Multiply matrices\n" +
                     "4. Transpose matrix\n" +
+                    "5. Calculate a determinant\n" +
                     "0. Exit\n" +
                     "Your choice: ");
             int choice = SCANNER.nextInt();
@@ -196,6 +222,12 @@ public class Main {
                     break;
                 case 4:
                     transposeMatrixSubMenu();
+                    break;
+                case 5:
+                    firstMatrix = getMatrix();
+                    double determinant = calculateDeterminant(firstMatrix, firstMatrix.length);
+                    System.out.println(THE_RESULT_IS);
+                    System.out.printf("%s%n%n", DECIMAL_FORMAT.format(determinant));
                     break;
                 case 0:
                     isOn = false;

@@ -145,10 +145,7 @@ public class Main {
     public static double calculateDeterminant(double[][] matrix, int n) {
         double determinant = 0;
         final int M = matrix[0].length;
-        if (n != M) {
-            System.out.println ("The matrix is not a square matrix, there is no determinant");
-            return Double.MIN_VALUE;
-        }
+
         if (n == 1) {
             return matrix[0][0];
         }
@@ -186,6 +183,31 @@ public class Main {
         }
     }
 
+    private static double[][] inverseMatrix(double[][] matrix) {
+        final int columnLength = matrix[0].length;
+        final int rowLength = matrix.length;
+        double determinant = calculateDeterminant(matrix, rowLength);
+        double[][] temporaryInverseMatrix = new double[rowLength][columnLength];
+        double[][] temp = new double[rowLength][columnLength];
+
+        for (int row = 0; row < rowLength; row++) {
+            for (int column = 0; column < rowLength; column++) {
+                getCofactor(matrix, temp, row, column, rowLength);
+                temporaryInverseMatrix[row][column] = Math.pow(-1, row + column)
+                        * calculateDeterminant(temp, rowLength - 1);
+            }
+        }
+
+        double[][] inverseMatrix = new double[rowLength][columnLength];
+
+        for (int i = 0; i < rowLength; i++) {
+            for (int j = 0; j < columnLength; j++) {
+                inverseMatrix[i][j] = temporaryInverseMatrix[j][i] / determinant;
+            }
+        }
+        return inverseMatrix;
+    }
+
     public static void matrixOperationsMenu() {
         double[][] firstMatrix;
         double[][] secondMatrix;
@@ -197,6 +219,7 @@ public class Main {
                     "3. Multiply matrices\n" +
                     "4. Transpose matrix\n" +
                     "5. Calculate a determinant\n" +
+                    "6. Inverse matrix\n" +
                     "0. Exit\n" +
                     "Your choice: ");
             int choice = SCANNER.nextInt();
@@ -235,6 +258,12 @@ public class Main {
                     double determinant = calculateDeterminant(firstMatrix, firstMatrix.length);
                     System.out.println(THE_RESULT_IS);
                     System.out.printf("%s%n%n", DECIMAL_FORMAT.format(determinant));
+                    break;
+                case 6:
+                    firstMatrix = getMatrix();
+                    result = inverseMatrix(firstMatrix);
+                    System.out.println(THE_RESULT_IS);
+                    printMatrix(result);
                     break;
                 case 0:
                     isOn = false;
